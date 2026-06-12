@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handmade Bracelets — iLemeMade</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Caveat:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#b388ff;--pink:#ff7eb3;--yellow:#ffd93d;--green:#6bcb77;--blue:#4da6ff;--red:#ff5c5c;--orange:#ff9a3c;--cream:#fffdf7;--soft:#f3eeff;--ink:#2a1f3d;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;}
+.rainbow-stripe{height:6px;background:linear-gradient(90deg,var(--red) 0%,var(--orange) 17%,var(--yellow) 33%,var(--green) 50%,var(--blue) 67%,var(--purple) 83%,var(--pink) 100%);}
+nav{background:var(--cream);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ede8ff;position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.logo-icon{width:34px;height:34px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.logo-text{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.3rem;color:var(--ink);}
+.logo-text span{color:var(--purple);}
+.nav-back{font-family:'Nunito',sans-serif;font-weight:700;font-size:0.82rem;color:var(--ink);opacity:0.5;text-decoration:none;}
+.breadcrumb{padding:12px 28px;font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:600;color:var(--ink);opacity:0.4;display:flex;gap:8px;}
+.breadcrumb a{color:inherit;text-decoration:none;}
+.product-page{max-width:1060px;margin:0 auto;padding:20px 28px 80px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+@media(max-width:700px){.product-page{grid-template-columns:1fr;gap:28px;padding:16px 18px 60px;}}
+
+.gallery-main{border-radius:20px;overflow:hidden;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:2px dashed #ede8ff;transition:background 0.3s;}
+.gallery-main .ph-emoji{font-size:5rem;}
+.gallery-main .ph-text{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--purple);opacity:0.6;}
+.gallery-thumbs{display:flex;gap:8px;margin-top:10px;}
+.thumb-ph{flex:1;aspect-ratio:1;border-radius:12px;border:2px dashed #ede8ff;display:flex;align-items:center;justify-content:center;font-size:1.8rem;background:var(--soft);}
+
+.product-info{display:flex;flex-direction:column;gap:18px;}
+.product-eyebrow{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--purple);}
+.product-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:2rem;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);}
+.product-subtitle{font-size:0.88rem;color:var(--ink);opacity:0.5;line-height:1.6;}
+hr{border:none;border-top:1px solid #ede8ff;}
+.selector-label{font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);opacity:0.5;margin-bottom:8px;}
+
+.style-options{display:flex;gap:10px;flex-wrap:wrap;}
+.style-btn{flex:1;min-width:100px;padding:12px 8px;border-radius:14px;border:2px solid #ede8ff;background:white;cursor:pointer;text-align:center;transition:all 0.18s;font-family:'Nunito',sans-serif;}
+.style-btn:hover{border-color:var(--purple);}
+.style-btn.selected{border-color:var(--purple);background:var(--soft);}
+.style-btn .sb-emoji{font-size:1.4rem;display:block;margin-bottom:4px;}
+.style-btn .sb-name{font-weight:800;font-size:0.8rem;color:var(--ink);display:block;}
+.style-btn .sb-price{font-weight:700;font-size:0.72rem;color:var(--purple);display:block;margin-top:2px;}
+
+/* color palette */
+.palette{display:flex;gap:8px;flex-wrap:wrap;}
+.palette-dot{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform 0.15s,border-color 0.15s;}
+.palette-dot:hover{transform:scale(1.15);}
+.palette-dot.selected{border-color:var(--ink);transform:scale(1.15);}
+
+/* size */
+.size-row{display:flex;gap:8px;}
+.size-btn{padding:8px 18px;border-radius:100px;border:2px solid #ede8ff;background:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;cursor:pointer;transition:all 0.18s;color:var(--ink);}
+.size-btn:hover{border-color:var(--purple);}
+.size-btn.selected{border-color:var(--purple);background:var(--soft);}
+
+.price-summary{background:white;border-radius:16px;padding:16px;border:2px solid #ede8ff;}
+.price-row{display:flex;justify-content:space-between;align-items:center;font-family:'Nunito',sans-serif;font-size:0.85rem;color:var(--ink);opacity:0.6;padding:3px 0;}
+.price-row.total{font-size:1.05rem;font-weight:900;opacity:1;padding-top:10px;border-top:1px solid #ede8ff;margin-top:6px;}
+.price-row.total span:last-child{color:var(--purple);font-size:1.2rem;}
+.cta-btn{background:var(--purple);color:white;font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;padding:16px 28px;border-radius:100px;border:none;cursor:pointer;width:100%;box-shadow:0 4px 20px rgba(179,136,255,0.35);transition:transform 0.15s;text-align:center;text-decoration:none;display:block;}
+.cta-btn:hover{transform:translateY(-2px);}
+.handnote{font-family:'Caveat',cursive;font-size:1rem;color:var(--pink);text-align:center;}
+.photo-note{background:#fffbe6;border:1px solid #ffe066;border-radius:12px;padding:12px 16px;font-size:0.78rem;color:#7a6000;line-height:1.6;font-family:'Nunito',sans-serif;font-weight:600;}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.feature{background:white;border-radius:12px;padding:12px 14px;border:1px solid #ede8ff;}
+.feature-icon{font-size:1.2rem;margin-bottom:4px;}
+.feature-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;color:var(--ink);}
+.feature-desc{font-size:0.73rem;color:var(--ink);opacity:0.5;line-height:1.5;margin-top:2px;}
+</style>
+</head>
+<body>
+<div class="rainbow-stripe"></div>
+<nav>
+  <a class="nav-logo" href="../">
+    <div class="logo-icon">🍋</div>
+    <div class="logo-text">iLeme<span>Made</span></div>
+  </a>
+  <a class="nav-back" href="../">← Back to Shop</a>
+</nav>
+<div class="breadcrumb"><a href="../">Shop</a> › <span>Handmade Bracelets</span></div>
+
+<div class="product-page">
+  <div class="gallery">
+    <div class="gallery-main" id="galleryMain" style="background:linear-gradient(135deg,#f3eeff,#ffe0f5);">
+      <div class="ph-emoji">📿</div>
+      <div class="ph-text">photos coming soon!</div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="thumb-ph">📿</div>
+      <div class="thumb-ph">🌈</div>
+      <div class="thumb-ph">✨</div>
+    </div>
+  </div>
+
+  <div class="product-info">
+    <div>
+      <div class="product-eyebrow">✨ handmade · beaded</div>
+      <div class="product-title">Handmade<br>Bracelets</div>
+      <div class="product-subtitle">Beaded bracelets made by hand — stackable, colorful, and crafted with care. Pick your style, pick your colors, and wear something made just for you.</div>
+    </div>
+    <div class="photo-note">📸 Product photos coming soon! Custom color options available — mention your favorites in the Etsy order notes.</div>
+    <hr>
+
+    <div>
+      <div class="selector-label">Style</div>
+      <div class="style-options">
+        <div class="style-btn selected" onclick="selectStyle(this,'Beaded','$8','linear-gradient(135deg,#f3eeff,#ffe0f5)')">
+          <span class="sb-emoji">📿</span><span class="sb-name">Beaded</span><span class="sb-price">$8</span>
+        </div>
+        <div class="style-btn" onclick="selectStyle(this,'Charm','$12','linear-gradient(135deg,#fff0e0,#fff8e0)')">
+          <span class="sb-emoji">🌟</span><span class="sb-name">Charm</span><span class="sb-price">$12</span>
+        </div>
+        <div class="style-btn" onclick="selectStyle(this,'Stackable Set','$20','linear-gradient(135deg,#e0fff0,#e0f0ff)')">
+          <span class="sb-emoji">💫</span><span class="sb-name">Set of 3</span><span class="sb-price">$20</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="selector-label">Color palette</div>
+      <div class="palette">
+        <div class="palette-dot selected" style="background:#ff7eb3;" onclick="selectColor(this,'#ffe0f0','#fff0f8')" title="Pink"></div>
+        <div class="palette-dot" style="background:#b388ff;" onclick="selectColor(this,'#f0e8ff','#f8f0ff')" title="Purple"></div>
+        <div class="palette-dot" style="background:#4da6ff;" onclick="selectColor(this,'#e0f0ff','#f0f8ff')" title="Blue"></div>
+        <div class="palette-dot" style="background:#ffd93d;" onclick="selectColor(this,'#fff8e0','#fffce8')" title="Yellow"></div>
+        <div class="palette-dot" style="background:#6bcb77;" onclick="selectColor(this,'#e0ffe8','#f0fff4')" title="Green"></div>
+        <div class="palette-dot" style="background:#ff5c5c;" onclick="selectColor(this,'#ffe0e0','#fff0f0')" title="Red"></div>
+        <div class="palette-dot" style="background:linear-gradient(135deg,#ff7eb3,#b388ff,#4da6ff,#6bcb77);" onclick="selectColor(this,'#f5f0ff','#fff8ff')" title="Rainbow"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="selector-label">Wrist size</div>
+      <div class="size-row">
+        <div class="size-btn" onclick="selectSize(this)">XS (5.5")</div>
+        <div class="size-btn selected" onclick="selectSize(this)">S/M (6.5")</div>
+        <div class="size-btn" onclick="selectSize(this)">L (7.5")</div>
+        <div class="size-btn" onclick="selectSize(this)">Custom</div>
+      </div>
+    </div>
+
+    <div class="price-summary">
+      <div class="price-row"><span>Style</span><span id="styleName">Beaded</span></div>
+      <div class="price-row"><span>Size</span><span id="sizeName">S/M (6.5")</span></div>
+      <div class="price-row total"><span>Total</span><span id="totalPrice">$8.00</span></div>
+    </div>
+
+    <a href="https://etsy.com" target="_blank" class="cta-btn">View on Etsy 🛍️</a>
+    <div class="handnote">✦ made just for you ✦</div>
+    <hr>
+    <div class="features">
+      <div class="feature"><div class="feature-icon">🤲</div><div class="feature-title">Handcrafted</div><div class="feature-desc">Every bracelet strung and finished by hand</div></div>
+      <div class="feature"><div class="feature-icon">🌈</div><div class="feature-title">Rainbow Colors</div><div class="feature-desc">Mix and match — stackable with any outfit</div></div>
+      <div class="feature"><div class="feature-icon">📏</div><div class="feature-title">Custom Sizing</div><div class="feature-desc">Note your wrist size for a perfect fit</div></div>
+      <div class="feature"><div class="feature-icon">🎁</div><div class="feature-title">Perfect Gift</div><div class="feature-desc">Great for birthdays, friendships & more</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function selectStyle(el, name, price, bg) {
+  document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('styleName').textContent = name;
+  document.getElementById('totalPrice').textContent = price + '.00';
+  document.getElementById('galleryMain').style.background = bg;
+}
+function selectColor(el, bg1, bg2) {
+  document.querySelectorAll('.palette-dot').forEach(d => d.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('galleryMain').style.background = 'linear-gradient(135deg,'+bg1+','+bg2+')';
+}
+function selectSize(el) {
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('sizeName').textContent = el.textContent;
+}
+</script>
+</body>
+</html>

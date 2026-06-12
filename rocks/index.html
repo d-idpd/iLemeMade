@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hand Painted Rocks — iLemeMade</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Caveat:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#b388ff;--pink:#ff7eb3;--yellow:#ffd93d;--green:#6bcb77;--blue:#4da6ff;--red:#ff5c5c;--orange:#ff9a3c;--cream:#fffdf7;--soft:#f3eeff;--ink:#2a1f3d;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;}
+.rainbow-stripe{height:6px;background:linear-gradient(90deg,var(--red) 0%,var(--orange) 17%,var(--yellow) 33%,var(--green) 50%,var(--blue) 67%,var(--purple) 83%,var(--pink) 100%);}
+nav{background:var(--cream);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ede8ff;position:sticky;top:0;z-index:100;}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.logo-icon{width:34px;height:34px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.logo-text{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.3rem;color:var(--ink);}
+.logo-text span{color:var(--purple);}
+.nav-back{font-family:'Nunito',sans-serif;font-weight:700;font-size:0.82rem;color:var(--ink);opacity:0.5;text-decoration:none;}
+.breadcrumb{padding:12px 28px;font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:600;color:var(--ink);opacity:0.4;display:flex;gap:8px;}
+.breadcrumb a{color:inherit;text-decoration:none;}
+.product-page{max-width:1060px;margin:0 auto;padding:20px 28px 80px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+@media(max-width:700px){.product-page{grid-template-columns:1fr;gap:28px;padding:16px 18px 60px;}}
+
+/* placeholder gallery */
+.gallery-main{border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#fff0f8 0%,#f0fff4 50%,#f0f4ff 100%);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:2px dashed #ede8ff;}
+.gallery-main .ph-emoji{font-size:5rem;}
+.gallery-main .ph-text{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--purple);opacity:0.6;}
+.gallery-thumbs{display:flex;gap:8px;margin-top:10px;}
+.thumb-ph{flex:1;aspect-ratio:1;border-radius:12px;border:2px dashed #ede8ff;display:flex;align-items:center;justify-content:center;font-size:1.8rem;background:var(--soft);cursor:pointer;}
+
+.product-info{display:flex;flex-direction:column;gap:18px;}
+.product-eyebrow{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--purple);}
+.product-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:2rem;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);}
+.product-subtitle{font-size:0.88rem;color:var(--ink);opacity:0.5;line-height:1.6;}
+hr{border:none;border-top:1px solid #ede8ff;}
+.selector-label{font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink);opacity:0.5;margin-bottom:8px;}
+
+/* design options */
+.design-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.design-btn{padding:12px 6px;border-radius:14px;border:2px solid #ede8ff;background:white;cursor:pointer;text-align:center;transition:all 0.18s;font-family:'Nunito',sans-serif;}
+.design-btn:hover{border-color:var(--purple);}
+.design-btn.selected{border-color:var(--purple);background:var(--soft);}
+.design-btn .db-emoji{font-size:1.4rem;display:block;margin-bottom:3px;}
+.design-btn .db-name{font-weight:800;font-size:0.74rem;color:var(--ink);display:block;}
+.design-btn .db-price{font-weight:700;font-size:0.7rem;color:var(--purple);display:block;margin-top:2px;}
+
+/* qty */
+.qty-row{display:flex;align-items:center;gap:12px;}
+.qty-btn{width:36px;height:36px;border-radius:50%;border:2px solid #ede8ff;background:white;font-family:'Nunito',sans-serif;font-weight:900;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.qty-btn:hover{border-color:var(--purple);background:var(--soft);}
+.qty-num{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.1rem;color:var(--ink);min-width:24px;text-align:center;}
+
+.price-summary{background:white;border-radius:16px;padding:16px;border:2px solid #ede8ff;}
+.price-row{display:flex;justify-content:space-between;align-items:center;font-family:'Nunito',sans-serif;font-size:0.85rem;color:var(--ink);opacity:0.6;padding:3px 0;}
+.price-row.total{font-size:1.05rem;font-weight:900;opacity:1;padding-top:10px;border-top:1px solid #ede8ff;margin-top:6px;}
+.price-row.total span:last-child{color:var(--purple);font-size:1.2rem;}
+.cta-btn{background:var(--purple);color:white;font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;padding:16px 28px;border-radius:100px;border:none;cursor:pointer;width:100%;box-shadow:0 4px 20px rgba(179,136,255,0.35);transition:transform 0.15s;text-align:center;text-decoration:none;display:block;}
+.cta-btn:hover{transform:translateY(-2px);}
+.handnote{font-family:'Caveat',cursive;font-size:1rem;color:var(--pink);text-align:center;}
+.photo-note{background:#fffbe6;border:1px solid #ffe066;border-radius:12px;padding:12px 16px;font-size:0.78rem;color:#7a6000;line-height:1.6;font-family:'Nunito',sans-serif;font-weight:600;}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.feature{background:white;border-radius:12px;padding:12px 14px;border:1px solid #ede8ff;}
+.feature-icon{font-size:1.2rem;margin-bottom:4px;}
+.feature-title{font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;color:var(--ink);}
+.feature-desc{font-size:0.73rem;color:var(--ink);opacity:0.5;line-height:1.5;margin-top:2px;}
+</style>
+</head>
+<body>
+<div class="rainbow-stripe"></div>
+<nav>
+  <a class="nav-logo" href="../">
+    <div class="logo-icon">🍋</div>
+    <div class="logo-text">iLeme<span>Made</span></div>
+  </a>
+  <a class="nav-back" href="../">← Back to Shop</a>
+</nav>
+<div class="breadcrumb"><a href="../">Shop</a> › <span>Hand Painted Rocks</span></div>
+
+<div class="product-page">
+  <div class="gallery">
+    <div class="gallery-main">
+      <div class="ph-emoji" id="designEmoji">🐞</div>
+      <div class="ph-text">photos coming soon!</div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="thumb-ph">🐞</div>
+      <div class="thumb-ph">🌈</div>
+      <div class="thumb-ph">🐾</div>
+    </div>
+  </div>
+
+  <div class="product-info">
+    <div>
+      <div class="product-eyebrow">✨ hand painted · one of a kind</div>
+      <div class="product-title">Hand Painted<br>Rocks</div>
+      <div class="product-subtitle">Natural river rocks, painted by hand with acrylic paint and sealed with a glossy finish. Each one is completely unique — no two are the same. Perfect for desks, shelves, gardens, or gifts.</div>
+    </div>
+    <div class="photo-note">📸 Product photos coming soon! Each rock is unique — yours will be similar to the design you pick but one of a kind.</div>
+    <hr>
+
+    <div>
+      <div class="selector-label">Choose a design</div>
+      <div class="design-grid">
+        <div class="design-btn selected" onclick="selectDesign(this,'🐞','Ladybug','$5')">
+          <span class="db-emoji">🐞</span><span class="db-name">Ladybug</span><span class="db-price">$5</span>
+        </div>
+        <div class="design-btn" onclick="selectDesign(this,'🌈','Rainbow','$5')">
+          <span class="db-emoji">🌈</span><span class="db-name">Rainbow</span><span class="db-price">$5</span>
+        </div>
+        <div class="design-btn" onclick="selectDesign(this,'🐾','Paw Print','$5')">
+          <span class="db-emoji">🐾</span><span class="db-name">Paw Print</span><span class="db-price">$5</span>
+        </div>
+        <div class="design-btn" onclick="selectDesign(this,'🌸','Floral','$6')">
+          <span class="db-emoji">🌸</span><span class="db-name">Floral</span><span class="db-price">$6</span>
+        </div>
+        <div class="design-btn" onclick="selectDesign(this,'🐱','Kitty Face','$7')">
+          <span class="db-emoji">🐱</span><span class="db-name">Kitty Face</span><span class="db-price">$7</span>
+        </div>
+        <div class="design-btn" onclick="selectDesign(this,'✨','Galaxy','$7')">
+          <span class="db-emoji">✨</span><span class="db-name">Galaxy</span><span class="db-price">$7</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="selector-label">Quantity</div>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-num" id="qtyNum">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+        <span style="font-size:0.8rem;color:var(--ink);opacity:0.45;font-family:'Nunito',sans-serif;font-weight:600;">rock(s)</span>
+      </div>
+    </div>
+
+    <div class="price-summary">
+      <div class="price-row"><span>Design</span><span id="designName">Ladybug</span></div>
+      <div class="price-row"><span>Qty</span><span id="qtyDisplay">1</span></div>
+      <div class="price-row total"><span>Total</span><span id="totalPrice">$5.00</span></div>
+    </div>
+
+    <a href="https://etsy.com" target="_blank" class="cta-btn">View on Etsy 🛍️</a>
+    <div class="handnote">✦ every rock is one of a kind ✦</div>
+    <hr>
+    <div class="features">
+      <div class="feature"><div class="feature-icon">🪨</div><div class="feature-title">Natural River Rock</div><div class="feature-desc">Smooth, natural stones — each one a different shape</div></div>
+      <div class="feature"><div class="feature-icon">🎨</div><div class="feature-title">Hand Painted</div><div class="feature-desc">Acrylic paint applied by hand, detail by detail</div></div>
+      <div class="feature"><div class="feature-icon">💎</div><div class="feature-title">Gloss Sealed</div><div class="feature-desc">Clear coat finish for durability and shine</div></div>
+      <div class="feature"><div class="feature-icon">🎁</div><div class="feature-title">Great Gift</div><div class="feature-desc">Perfect for desks, gardens, or as a little surprise</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentPrice = 5;
+let qty = 1;
+
+function selectDesign(el, emoji, name, price) {
+  document.querySelectorAll('.design-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('designEmoji').textContent = emoji;
+  document.getElementById('designName').textContent = name;
+  currentPrice = parseInt(price.replace('$',''));
+  updateTotal();
+}
+function changeQty(d) {
+  qty = Math.max(1, Math.min(10, qty + d));
+  document.getElementById('qtyNum').textContent = qty;
+  document.getElementById('qtyDisplay').textContent = qty;
+  updateTotal();
+}
+function updateTotal() {
+  document.getElementById('totalPrice').textContent = '$' + (currentPrice * qty).toFixed(2);
+}
+</script>
+</body>
+</html>
