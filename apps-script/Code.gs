@@ -530,6 +530,8 @@ function styleHeader(sheet, numCols) {
 }
 
 // ─── Sample Data ──────────────────────────────────────────────────────────────
+// All IDs are prefixed with DEMO- and names with [DEMO] so placeholder data
+// is immediately obvious and won't be confused with real entries.
 
 function seedSampleData() {
   const ss  = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -539,15 +541,15 @@ function seedSampleData() {
   const prodSheet = ss.getSheetByName(SHEETS.PRODUCTS);
   if (prodSheet.getLastRow() < 2) {
     prodSheet.getRange(2, 1, 9, 6).setValues([
-      ['BC-001','BearCat Keychain',        'Keychain',  'Gummy bear cat resin keychain with chain',           45,  12.00],
-      ['HK-001','Hello Kitty Resin',       'Resin Art', 'Hello Kitty character cast in clear resin',          60,  18.00],
-      ['CB-001','Chicken Banana',          'Figurine',  'Chicken riding a banana figurine',                   30,  10.00],
-      ['DR-001','3D Printed Dragon',       '3D Print',  'Articulated dragon in recycled filament',            20,   8.00],
-      ['RL-001','Resin Lemon',             'Resin Art', 'Translucent lemon slice resin art piece',            75,  22.00],
-      ['SH-001','Trail Shoe Art',          'Resin Art', 'Trail running shoe themed resin casting',            90,  28.00],
-      ['RF-001','Recycled Filament Cast',  '3D Print',  'Art piece made from recycled 3D printer filament',   15,   6.00],
-      ['BR-001','Handmade Bracelet',       'Jewelry',   'Beaded or charm bracelet, one-of-a-kind',            30,   8.00],
-      ['RK-001','Hand Painted Rock',       'Painted',   'Natural river rock with hand painted design',        20,   5.00],
+      ['DEMO-BC-001','[DEMO] BearCat Keychain',        'Keychain',  '[DEMO] Gummy bear cat resin keychain with chain',           45,  12.00],
+      ['DEMO-HK-001','[DEMO] Hello Kitty Resin',       'Resin Art', '[DEMO] Hello Kitty character cast in clear resin',          60,  18.00],
+      ['DEMO-CB-001','[DEMO] Chicken Banana',          'Figurine',  '[DEMO] Chicken riding a banana figurine',                   30,  10.00],
+      ['DEMO-DR-001','[DEMO] 3D Printed Dragon',       '3D Print',  '[DEMO] Articulated dragon in recycled filament',            20,   8.00],
+      ['DEMO-RL-001','[DEMO] Resin Lemon',             'Resin Art', '[DEMO] Translucent lemon slice resin art piece',            75,  22.00],
+      ['DEMO-SH-001','[DEMO] Trail Shoe Art',          'Resin Art', '[DEMO] Trail running shoe themed resin casting',            90,  28.00],
+      ['DEMO-RF-001','[DEMO] Recycled Filament Cast',  '3D Print',  '[DEMO] Art piece made from recycled 3D printer filament',   15,   6.00],
+      ['DEMO-BR-001','[DEMO] Handmade Bracelet',       'Jewelry',   '[DEMO] Beaded or charm bracelet, one-of-a-kind',            30,   8.00],
+      ['DEMO-RK-001','[DEMO] Hand Painted Rock',       'Painted',   '[DEMO] Natural river rock with hand painted design',        20,   5.00],
     ]);
     log.push('Seeded Products: 9 rows');
   } else { log.push('Products skipped'); }
@@ -556,16 +558,16 @@ function seedSampleData() {
   const supSheet = ss.getSheetByName(SHEETS.SUPPLIES);
   if (supSheet.getLastRow() < 2) {
     supSheet.getRange(2, 1, 10, 5).setValues([
-      ['RES-001','Clear Casting Resin',      'Resin',     'oz',   '2-part A+B clear casting resin'],
-      ['RES-002','UV Resin',                 'Resin',     'oz',   'Single-part UV-cure resin'],
-      ['FIL-001','PLA Filament — Black',     'Filament',  'g',    'Standard black PLA for dragons & casts'],
-      ['FIL-002','PLA Filament — Blue',      'Filament',  'g',    'Ocean blue PLA'],
-      ['PAI-001','Acrylic Paint Set',        'Paint',     'oz',   'Multi-color acrylic set'],
-      ['HDW-001','Keychain Hook + Ring Set', 'Hardware',  'each', 'Lobster clasp + jump ring set, silver'],
-      ['HDW-002','LED Light Base',           'Hardware',  'each', 'USB LED display stand, 7-color'],
-      ['PKG-001','Clear Poly Bag 3×4"',      'Packaging', 'each', 'Resealable display bags'],
-      ['PKG-002','Kraft Hang Tag',           'Packaging', 'each', 'Pre-punched tags for price/story label'],
-      ['GIT-001','Gold Holographic Glitter', 'Other',     'oz',   'Fine holographic gold glitter'],
+      ['DEMO-RES-001','[DEMO] Clear Casting Resin',      'Resin',     'oz',   '[DEMO] 2-part A+B clear casting resin'],
+      ['DEMO-RES-002','[DEMO] UV Resin',                 'Resin',     'oz',   '[DEMO] Single-part UV-cure resin'],
+      ['DEMO-FIL-001','[DEMO] PLA Filament — Black',     'Filament',  'g',    '[DEMO] Standard black PLA for dragons & casts'],
+      ['DEMO-FIL-002','[DEMO] PLA Filament — Blue',      'Filament',  'g',    '[DEMO] Ocean blue PLA'],
+      ['DEMO-PAI-001','[DEMO] Acrylic Paint Set',        'Paint',     'oz',   '[DEMO] Multi-color acrylic set'],
+      ['DEMO-HDW-001','[DEMO] Keychain Hook + Ring Set', 'Hardware',  'each', '[DEMO] Lobster clasp + jump ring set, silver'],
+      ['DEMO-HDW-002','[DEMO] LED Light Base',           'Hardware',  'each', '[DEMO] USB LED display stand, 7-color'],
+      ['DEMO-PKG-001','[DEMO] Clear Poly Bag 3×4"',      'Packaging', 'each', '[DEMO] Resealable display bags'],
+      ['DEMO-PKG-002','[DEMO] Kraft Hang Tag',           'Packaging', 'each', '[DEMO] Pre-punched tags for price/story label'],
+      ['DEMO-GIT-001','[DEMO] Gold Holographic Glitter', 'Other',     'oz',   '[DEMO] Fine holographic gold glitter'],
     ]);
     log.push('Seeded Supplies: 10 rows');
   } else { log.push('Supplies skipped'); }
@@ -573,20 +575,18 @@ function seedSampleData() {
   // ── Purchases ───────────────────────────────────────────────────────────────
   const purSheet = ss.getSheetByName(SHEETS.PURCHASES);
   if (purSheet.getLastRow() < 2) {
-    // CostPerUnit is pre-calculated here for readability; the API also calculates it on read
     purSheet.getRange(2, 1, 11, 10).setValues([
-      // PurchaseID   SupplyID   Date          Supplier        ProductName                    Qty    Paid   CPU     ReceiptURL  Notes
-      ['PUR-001','RES-001','2025-02-15','Amazon',       'Alumilite Clear 32oz Kit',     32, 24.99, 0.781,'','First resin purchase'],
-      ['PUR-002','HDW-001','2025-02-15','Hobby Lobby',  'Lobster Clasp + Ring 50pk',    50,  6.99, 0.140,'','50-pack silver hardware'],
-      ['PUR-003','FIL-001','2025-02-20','Amazon',       'Hatchbox PLA Black 1kg',     1000, 19.99, 0.020,'','1kg spool'],
-      ['PUR-004','PAI-001','2025-02-20',"Michael's",    'Apple Barrel Acrylic 12-pack',  12,  8.99, 0.749,'','12 × 1oz bottles'],
-      ['PUR-005','PKG-001','2025-02-20','Amazon',       'Clear Poly Bag 3x4 100pk',    100,  5.99, 0.060,'','100-pack bags'],
-      ['PUR-006','PKG-002','2025-02-20','Amazon',       'Kraft Hang Tags 50pk',         50,  3.99, 0.080,'','50-pack tags'],
-      ['PUR-007','GIT-001','2025-03-01','Hobby Lobby',  'Gold Holo Glitter 2oz',         2,  3.49, 1.745,'','Fine gold holographic'],
-      ['PUR-008','HDW-002','2025-03-05','Amazon',       'LED Display Base 5pk',          5,  9.99, 1.998,'','7-color USB bases'],
-      ['PUR-009','FIL-002','2025-03-10','Amazon',       'Hatchbox PLA Blue 1kg',      1000, 21.99, 0.022,'','Ocean blue spool'],
-      ['PUR-010','RES-001','2025-05-01','Amazon',       'Alumilite Clear 32oz Kit',     32, 26.99, 0.844,'','Reorder — price went up'],
-      ['PUR-011','RES-002','2025-04-10','Amazon',       'LET\'S RESIN UV Resin 17oz',   17, 18.99, 1.117,'','UV resin for small details'],
+      ['DEMO-PUR-001','DEMO-RES-001','2025-02-15','Amazon',       'Alumilite Clear 32oz Kit',     32, 24.99, 0.781,'','[DEMO] First resin purchase'],
+      ['DEMO-PUR-002','DEMO-HDW-001','2025-02-15','Hobby Lobby',  'Lobster Clasp + Ring 50pk',    50,  6.99, 0.140,'','[DEMO] 50-pack silver hardware'],
+      ['DEMO-PUR-003','DEMO-FIL-001','2025-02-20','Amazon',       'Hatchbox PLA Black 1kg',     1000, 19.99, 0.020,'','[DEMO] 1kg spool'],
+      ['DEMO-PUR-004','DEMO-PAI-001','2025-02-20',"Michael's",    'Apple Barrel Acrylic 12-pack',  12,  8.99, 0.749,'','[DEMO] 12 × 1oz bottles'],
+      ['DEMO-PUR-005','DEMO-PKG-001','2025-02-20','Amazon',       'Clear Poly Bag 3x4 100pk',    100,  5.99, 0.060,'','[DEMO] 100-pack bags'],
+      ['DEMO-PUR-006','DEMO-PKG-002','2025-02-20','Amazon',       'Kraft Hang Tags 50pk',         50,  3.99, 0.080,'','[DEMO] 50-pack tags'],
+      ['DEMO-PUR-007','DEMO-GIT-001','2025-03-01','Hobby Lobby',  'Gold Holo Glitter 2oz',         2,  3.49, 1.745,'','[DEMO] Fine gold holographic'],
+      ['DEMO-PUR-008','DEMO-HDW-002','2025-03-05','Amazon',       'LED Display Base 5pk',          5,  9.99, 1.998,'','[DEMO] 7-color USB bases'],
+      ['DEMO-PUR-009','DEMO-FIL-002','2025-03-10','Amazon',       'Hatchbox PLA Blue 1kg',      1000, 21.99, 0.022,'','[DEMO] Ocean blue spool'],
+      ['DEMO-PUR-010','DEMO-RES-001','2025-05-01','Amazon',       'Alumilite Clear 32oz Kit',     32, 26.99, 0.844,'','[DEMO] Reorder — price went up'],
+      ['DEMO-PUR-011','DEMO-RES-002','2025-04-10','Amazon',       "LET'S RESIN UV Resin 17oz",    17, 18.99, 1.117,'','[DEMO] UV resin for small details'],
     ]);
     log.push('Seeded Purchases: 11 rows');
   } else { log.push('Purchases skipped'); }
@@ -595,39 +595,39 @@ function seedSampleData() {
   const matSheet = ss.getSheetByName(SHEETS.PRODUCT_MATERIALS);
   if (matSheet.getLastRow() < 2) {
     matSheet.getRange(2, 1, 26, 4).setValues([
-      // BC-001 BearCat Keychain
-      ['BC-001','RES-001', 0.15, '0.15 oz measured by weight before/after pour'],
-      ['BC-001','HDW-001', 1,    '1 hook + ring per keychain'],
-      ['BC-001','PKG-001', 1,    '1 bag per item'],
-      ['BC-001','PKG-002', 1,    '1 hang tag per item'],
-      // HK-001 Hello Kitty
-      ['HK-001','RES-001', 0.20, '0.20 oz — slightly larger mold than BC'],
-      ['HK-001','GIT-001', 0.01, 'Pinch of glitter per pour'],
-      ['HK-001','PKG-001', 1,    '1 bag per item'],
-      ['HK-001','PKG-002', 1,    '1 hang tag per item'],
-      // CB-001 Chicken Banana
-      ['CB-001','RES-001', 0.18, '0.18 oz for figurine mold'],
-      ['CB-001','PAI-001', 0.02, 'Small amount for detail painting'],
-      ['CB-001','PKG-001', 1,    '1 bag per item'],
-      // DR-001 Dragon
-      ['DR-001','FIL-001', 8,    '~8g per slicer estimate at 15% infill'],
-      ['DR-001','PKG-001', 1,    '1 bag per item'],
-      ['DR-001','PKG-002', 1,    '1 hang tag per item'],
-      // RL-001 Resin Lemon
-      ['RL-001','RES-001', 0.25, '0.25 oz for lemon slice mold'],
-      ['RL-001','GIT-001', 0.01, 'Gold glitter inside each slice'],
-      ['RL-001','PKG-001', 1,    '1 bag per item'],
-      ['RL-001','PKG-002', 1,    '1 hang tag per item'],
-      // SH-001 Trail Shoe
-      ['SH-001','RES-001', 0.30, '0.30 oz for shoe mold — largest pour'],
-      ['SH-001','PAI-001', 0.03, 'Detail painting on sole and laces'],
-      ['SH-001','GIT-001', 0.01, 'Glitter accent'],
-      ['SH-001','PKG-001', 1,    '1 bag per item'],
-      ['SH-001','PKG-002', 1,    '1 hang tag per item'],
-      // RK-001 Painted Rock
-      ['RK-001','PAI-001', 0.05, '~0.05 oz paint per rock'],
-      ['RK-001','PKG-001', 1,    '1 bag per item'],
-      ['RK-001','PKG-002', 1,    '1 hang tag per item'],
+      // DEMO-BC-001 BearCat Keychain
+      ['DEMO-BC-001','DEMO-RES-001', 0.15, '[DEMO] 0.15 oz measured by weight before/after pour'],
+      ['DEMO-BC-001','DEMO-HDW-001', 1,    '[DEMO] 1 hook + ring per keychain'],
+      ['DEMO-BC-001','DEMO-PKG-001', 1,    '[DEMO] 1 bag per item'],
+      ['DEMO-BC-001','DEMO-PKG-002', 1,    '[DEMO] 1 hang tag per item'],
+      // DEMO-HK-001 Hello Kitty
+      ['DEMO-HK-001','DEMO-RES-001', 0.20, '[DEMO] 0.20 oz — slightly larger mold than BC'],
+      ['DEMO-HK-001','DEMO-GIT-001', 0.01, '[DEMO] Pinch of glitter per pour'],
+      ['DEMO-HK-001','DEMO-PKG-001', 1,    '[DEMO] 1 bag per item'],
+      ['DEMO-HK-001','DEMO-PKG-002', 1,    '[DEMO] 1 hang tag per item'],
+      // DEMO-CB-001 Chicken Banana
+      ['DEMO-CB-001','DEMO-RES-001', 0.18, '[DEMO] 0.18 oz for figurine mold'],
+      ['DEMO-CB-001','DEMO-PAI-001', 0.02, '[DEMO] Small amount for detail painting'],
+      ['DEMO-CB-001','DEMO-PKG-001', 1,    '[DEMO] 1 bag per item'],
+      // DEMO-DR-001 Dragon
+      ['DEMO-DR-001','DEMO-FIL-001', 8,    '[DEMO] ~8g per slicer estimate at 15% infill'],
+      ['DEMO-DR-001','DEMO-PKG-001', 1,    '[DEMO] 1 bag per item'],
+      ['DEMO-DR-001','DEMO-PKG-002', 1,    '[DEMO] 1 hang tag per item'],
+      // DEMO-RL-001 Resin Lemon
+      ['DEMO-RL-001','DEMO-RES-001', 0.25, '[DEMO] 0.25 oz for lemon slice mold'],
+      ['DEMO-RL-001','DEMO-GIT-001', 0.01, '[DEMO] Gold glitter inside each slice'],
+      ['DEMO-RL-001','DEMO-PKG-001', 1,    '[DEMO] 1 bag per item'],
+      ['DEMO-RL-001','DEMO-PKG-002', 1,    '[DEMO] 1 hang tag per item'],
+      // DEMO-SH-001 Trail Shoe
+      ['DEMO-SH-001','DEMO-RES-001', 0.30, '[DEMO] 0.30 oz for shoe mold — largest pour'],
+      ['DEMO-SH-001','DEMO-PAI-001', 0.03, '[DEMO] Detail painting on sole and laces'],
+      ['DEMO-SH-001','DEMO-GIT-001', 0.01, '[DEMO] Glitter accent'],
+      ['DEMO-SH-001','DEMO-PKG-001', 1,    '[DEMO] 1 bag per item'],
+      ['DEMO-SH-001','DEMO-PKG-002', 1,    '[DEMO] 1 hang tag per item'],
+      // DEMO-RK-001 Painted Rock
+      ['DEMO-RK-001','DEMO-PAI-001', 0.05, '[DEMO] ~0.05 oz paint per rock'],
+      ['DEMO-RK-001','DEMO-PKG-001', 1,    '[DEMO] 1 bag per item'],
+      ['DEMO-RK-001','DEMO-PKG-002', 1,    '[DEMO] 1 hang tag per item'],
     ]);
     log.push('Seeded ProductMaterials: 26 rows');
   } else { log.push('ProductMaterials skipped'); }
@@ -636,18 +636,18 @@ function seedSampleData() {
   const invSheet = ss.getSheetByName(SHEETS.INVENTORY);
   if (invSheet.getLastRow() < 2) {
     invSheet.getRange(2, 1, 12, 7).setValues([
-      ['HK-001-001','HK-001','Sold',      'Pink/White', '2025-03-01','','My first Hello Kitty! I made it with pink glitter.'],
-      ['HK-001-002','HK-001','Available', 'Blue/Silver','2025-03-15','','Sparkly blue with silver stars inside.'],
-      ['HK-001-003','HK-001','Available', 'Rainbow',    '2025-04-01','','Rainbow swirl — my favorite one yet!'],
-      ['BC-001-001','BC-001','Sold',      'Clear/Green','2025-02-20','','Green gummy cat, first keychain I ever sold!'],
-      ['BC-001-002','BC-001','Available', 'Purple',     '2025-04-10','','Purple sparkle BearCat.'],
-      ['BC-001-003','BC-001','Available', 'Orange',     '2025-04-20','','Halloween orange BearCat.'],
-      ['DR-001-001','DR-001','Available', 'Blue',       '2025-05-01','','Articulated dragon in ocean blue filament.'],
-      ['DR-001-002','DR-001','Sold',      'Red',        '2025-04-05','','Red dragon sold at the school fair!'],
-      ['RL-001-001','RL-001','Available', 'Yellow',     '2025-05-10','','Classic lemon slice with gold flake.'],
-      ['RK-001-001','RK-001','Sold',      'Multi',      '2025-03-10','','Ladybug rock, sold to grandma.'],
-      ['RK-001-002','RK-001','Available', 'Multi',      '2025-05-20','','Rainbow paw print rock.'],
-      ['BR-001-001','BR-001','Sold',      'Pink/Gold',  '2025-04-15','','Pink beaded bracelet with gold butterfly charm.'],
+      ['DEMO-HK-001-001','DEMO-HK-001','Sold',      'Pink/White', '2025-03-01','','[DEMO] My first Hello Kitty! I made it with pink glitter.'],
+      ['DEMO-HK-001-002','DEMO-HK-001','Available', 'Blue/Silver','2025-03-15','','[DEMO] Sparkly blue with silver stars inside.'],
+      ['DEMO-HK-001-003','DEMO-HK-001','Available', 'Rainbow',    '2025-04-01','','[DEMO] Rainbow swirl — my favorite one yet!'],
+      ['DEMO-BC-001-001','DEMO-BC-001','Sold',      'Clear/Green','2025-02-20','','[DEMO] Green gummy cat, first keychain I ever sold!'],
+      ['DEMO-BC-001-002','DEMO-BC-001','Available', 'Purple',     '2025-04-10','','[DEMO] Purple sparkle BearCat.'],
+      ['DEMO-BC-001-003','DEMO-BC-001','Available', 'Orange',     '2025-04-20','','[DEMO] Halloween orange BearCat.'],
+      ['DEMO-DR-001-001','DEMO-DR-001','Available', 'Blue',       '2025-05-01','','[DEMO] Articulated dragon in ocean blue filament.'],
+      ['DEMO-DR-001-002','DEMO-DR-001','Sold',      'Red',        '2025-04-05','','[DEMO] Red dragon sold at the school fair!'],
+      ['DEMO-RL-001-001','DEMO-RL-001','Available', 'Yellow',     '2025-05-10','','[DEMO] Classic lemon slice with gold flake.'],
+      ['DEMO-RK-001-001','DEMO-RK-001','Sold',      'Multi',      '2025-03-10','','[DEMO] Ladybug rock, sold to grandma.'],
+      ['DEMO-RK-001-002','DEMO-RK-001','Available', 'Multi',      '2025-05-20','','[DEMO] Rainbow paw print rock.'],
+      ['DEMO-BR-001-001','DEMO-BR-001','Sold',      'Pink/Gold',  '2025-04-15','','[DEMO] Pink beaded bracelet with gold butterfly charm.'],
     ]);
     log.push('Seeded Inventory: 12 rows');
   } else { log.push('Inventory skipped'); }
@@ -656,18 +656,18 @@ function seedSampleData() {
   const laborSheet = ss.getSheetByName(SHEETS.LABOR);
   if (laborSheet.getLastRow() < 2) {
     laborSheet.getRange(2, 1, 12, 3).setValues([
-      ['HK-001-001', 60, 5.00],
-      ['HK-001-002', 45, 5.00],
-      ['HK-001-003', 75, 5.00],
-      ['BC-001-001', 40, 5.00],
-      ['BC-001-002', 40, 5.00],
-      ['BC-001-003', 40, 5.00],
-      ['DR-001-001', 20, 5.00],
-      ['DR-001-002', 20, 5.00],
-      ['RL-001-001', 90, 5.00],
-      ['RK-001-001', 20, 5.00],
-      ['RK-001-002', 20, 5.00],
-      ['BR-001-001', 30, 5.00],
+      ['DEMO-HK-001-001', 60, 5.00],
+      ['DEMO-HK-001-002', 45, 5.00],
+      ['DEMO-HK-001-003', 75, 5.00],
+      ['DEMO-BC-001-001', 40, 5.00],
+      ['DEMO-BC-001-002', 40, 5.00],
+      ['DEMO-BC-001-003', 40, 5.00],
+      ['DEMO-DR-001-001', 20, 5.00],
+      ['DEMO-DR-001-002', 20, 5.00],
+      ['DEMO-RL-001-001', 90, 5.00],
+      ['DEMO-RK-001-001', 20, 5.00],
+      ['DEMO-RK-001-002', 20, 5.00],
+      ['DEMO-BR-001-001', 30, 5.00],
     ]);
     log.push('Seeded Labor: 12 rows');
   } else { log.push('Labor skipped'); }
@@ -676,11 +676,11 @@ function seedSampleData() {
   const salesSheet = ss.getSheetByName(SHEETS.SALES);
   if (salesSheet.getLastRow() < 2) {
     salesSheet.getRange(2, 1, 5, 5).setValues([
-      ['2025-03-05','HK-001-001',18.00,'In Person','Sold at spring craft fair'],
-      ['2025-03-12','BC-001-001',12.00,'In Person','School fundraiser'],
-      ['2025-04-07','DR-001-002', 8.00,'Etsy',     'First Etsy sale!'],
-      ['2025-04-18','RK-001-001', 5.00,'In Person','Sold to grandma'],
-      ['2025-04-22','BR-001-001', 8.00,'In Person',"Mom's coworker"],
+      ['2025-03-05','DEMO-HK-001-001',18.00,'In Person','[DEMO] Sold at spring craft fair'],
+      ['2025-03-12','DEMO-BC-001-001',12.00,'In Person','[DEMO] School fundraiser'],
+      ['2025-04-07','DEMO-DR-001-002', 8.00,'Etsy',     '[DEMO] First Etsy sale!'],
+      ['2025-04-18','DEMO-RK-001-001', 5.00,'In Person','[DEMO] Sold to grandma'],
+      ['2025-04-22','DEMO-BR-001-001', 8.00,'In Person','[DEMO] Mom\'s coworker'],
     ]);
     log.push('Seeded Sales: 5 rows');
   } else { log.push('Sales skipped'); }
