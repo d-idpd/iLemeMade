@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gummy Bear Cat Keychain — iLemeMade</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DGWYR5X2KF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DGWYR5X2KF');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -37,6 +44,7 @@ nav{background:var(--cream);padding:14px 28px;display:flex;align-items:center;ju
 .gallery{display:flex;flex-direction:column;gap:10px;}
 .gallery-main{border-radius:20px;overflow:hidden;background:#f8f0ff;aspect-ratio:4/3;position:relative;cursor:zoom-in;}
 .gallery-main img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.25s,transform 0.28s ease;}
+.gallery-main img.fit-height{width:auto;height:100%;max-width:none;object-fit:contain;margin:0 auto;}
 @media(hover:hover) and (pointer:fine){.gallery-main:hover img,.gallery-main:focus-visible img{transform:scale(1.18);}}
 @media(hover:none),(pointer:coarse){.gallery-main:active img{transform:scale(1.04);}}
 .image-zoom{position:fixed;inset:0;background:rgba(42,31,59,0.78);display:none;align-items:center;justify-content:center;padding:22px;z-index:500;}
@@ -102,6 +110,7 @@ hr{border:none;border-top:1px solid #ede8ff;}
 .color-showcase-feature{grid-column:1/-1;}
 .color-card{position:relative;border-radius:20px;overflow:hidden;background:white;}
 .color-showcase img{width:100%;display:block;}
+.color-showcase img.fit-height{width:auto;height:100%;max-width:none;margin:0 auto;}
 .color-card-label{position:absolute;top:12px;left:12px;font-family:'Nunito',sans-serif;font-weight:900;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(255,255,255,0.9);color:var(--ink);padding:5px 12px;border-radius:100px;}
 @media(max-width:700px){.color-showcase{grid-template-columns:1fr;}}
 
@@ -147,13 +156,16 @@ hr{border:none;border-top:1px solid #ede8ff;}
         <img id="t0" src="GummyBearCatWithChain.png" alt="Gummy Bear Cat keychain">
       </div>
       <div class="thumb is-hidden" id="thumb1" onclick="setThumb(1)">
-        <img id="t1" src="GummyBearCatPink.png" alt="Selected hand-painted Gummy Bear Cat color">
+        <img id="t1" src="GummyBearCatWithChain.png" alt="Selected hand-painted Gummy Bear Cat color">
       </div>
       <div class="thumb active" id="thumb2" onclick="setThumb(2)">
         <img id="t2" src="4colors.png" alt="All four hand-painted Gummy Bear Cat colors">
       </div>
       <div class="thumb is-hidden" id="thumb3" onclick="setThumb(3)">
         <img id="t3" src="GummyCatPatrioticFlyer.png" alt="Patriotic Gummy Bear Cat product flyer">
+      </div>
+      <div class="thumb is-hidden" id="thumb4" onclick="setThumb(4)">
+        <img id="t4" src="GummyBearCatPatriotic.png" alt="Patriotic hand-painted Gummy Bear Cat closeup">
       </div>
     </div>
   </div>
@@ -189,9 +201,9 @@ hr{border:none;border-top:1px solid #ede8ff;}
 
     <!-- PRICE -->
     <div class="price-summary">
-      <div class="price-row"><span>Gummy Bear Cat (<span id="summaryColor">Choose a color</span>)</span><span id="basePrice">$16.00</span></div>
+      <div class="price-row"><span>Gummy Bear Cat (<span id="summaryColor">Choose a color</span>)</span><span id="basePrice">$8.00</span></div>
       <div class="price-row"><span>Style</span><span id="styleDesc">Hand painted</span></div>
-      <div class="price-row total"><span>Total</span><span id="totalPrice">$16.00</span></div>
+      <div class="price-row total"><span>Total</span><span id="totalPrice">$8.00</span></div>
     </div>
 
     <a href="https://etsy.com" target="_blank" class="cta-btn disabled" id="buyBtn" aria-disabled="true">Choose a color to buy</a>
@@ -236,20 +248,24 @@ hr{border:none;border-top:1px solid #ede8ff;}
         <span class="color-card-label">All colors</span>
       </div>
       <div class="color-card">
-        <img src="GummyBearCatPink.png" alt="Pink hand-painted Gummy Bear Cat keychain">
+        <img src="GummyBearCatWithChain.png" alt="Pink hand-painted Gummy Bear Cat keychain">
         <span class="color-card-label">Pink</span>
       </div>
       <div class="color-card">
-        <img src="GummyBearCatRedWhiteSwirl.png" alt="Red and white swirl hand-painted Gummy Bear Cat keychain">
+        <img class="fit-height" src="GummyBearCatRedWhiteSwirl.png" alt="Red and white swirl hand-painted Gummy Bear Cat keychain">
         <span class="color-card-label">Red / White Swirl</span>
       </div>
       <div class="color-card">
-        <img src="GummyBearCatFuchsia.png" alt="Fuchsia hand-painted Gummy Bear Cat keychain">
+        <img class="fit-height" src="GummyBearCatFuchsia.png" alt="Fuchsia hand-painted Gummy Bear Cat keychain">
         <span class="color-card-label">Fuchsia</span>
       </div>
       <div class="color-card">
-        <img src="GummyBearCatPatriotic.png" alt="Patriotic hand-painted Gummy Bear Cat keychain">
+        <img src="GummyBearCatWithChain-patriotic.png" alt="Patriotic hand-painted Gummy Bear Cat keychain">
         <span class="color-card-label">Patriotic</span>
+      </div>
+      <div class="color-card">
+        <img class="fit-height" src="GummyBearCatPatriotic.png" alt="Patriotic hand-painted Gummy Bear Cat closeup">
+        <span class="color-card-label">Patriotic closeup</span>
       </div>
       <div class="color-card color-showcase-feature">
         <img src="GummyCatPatrioticFlyer.png" alt="Patriotic Gummy Bear Cat product flyer">
@@ -266,10 +282,15 @@ hr{border:none;border-top:1px solid #ede8ff;}
 
 <script>
 const fallbackImg = 'GummyBearCatWithChain.png';
+const heightFitImages = new Set([
+  'GummyBearCatRedWhiteSwirl.png',
+  'GummyBearCatFuchsia.png',
+  'GummyBearCatPatriotic.png'
+]);
 const products = {
   pink: {
     name: 'Pink',
-    img: 'GummyBearCatPink.png',
+    img: 'GummyBearCatWithChain.png',
     swatchImg: 'GummyBearCatPinkSwatch.png',
     bg: 'rgba(255,105,180,0.14)',
     color: '#8a1a50',
@@ -293,8 +314,9 @@ const products = {
   },
   patriotic: {
     name: 'Patriotic',
-    img: 'GummyBearCatPatriotic.png',
+    img: 'GummyBearCatWithChain-patriotic.png',
     swatchImg: 'GummyBearCatPatrioticSwatch.png',
+    detailImg: 'GummyBearCatPatriotic.png',
     flyerImg: 'GummyCatPatrioticFlyer.png',
     bg: 'rgba(43,80,170,0.12)',
     color: '#203b82',
@@ -317,6 +339,8 @@ const selectedColorThumb = document.getElementById('thumb1');
 const selectedColorThumbImg = document.getElementById('t1');
 const patrioticFlyerThumb = document.getElementById('thumb3');
 const patrioticFlyerThumbImg = document.getElementById('t3');
+const patrioticDetailThumb = document.getElementById('thumb4');
+const patrioticDetailThumbImg = document.getElementById('t4');
 
 heroImg.addEventListener('error', () => {
   if (!usingFallback) {
@@ -327,6 +351,7 @@ heroImg.addEventListener('error', () => {
 
 function setHero(src) {
   usingFallback = false;
+  heroImg.classList.toggle('fit-height', heightFitImages.has(src));
   heroImg.src = src;
   if (zoomImg) zoomImg.src = src;
 }
@@ -390,8 +415,8 @@ function updateBuyState(item) {
 
 function updateSummary(item) {
   document.getElementById('summaryColor').textContent = item ? item.name : 'Choose a color';
-  document.getElementById('basePrice').textContent = '$16.00';
-  document.getElementById('totalPrice').textContent = '$16.00';
+  document.getElementById('basePrice').textContent = '$8.00';
+  document.getElementById('totalPrice').textContent = '$8.00';
   document.getElementById('styleDesc').textContent = 'Hand painted';
 }
 
@@ -412,10 +437,11 @@ function updateBadge(item) {
 }
 
 function updateGalleryThumbs(item) {
-  if (!selectedColorThumb || !selectedColorThumbImg || !patrioticFlyerThumb || !patrioticFlyerThumbImg) return;
+  if (!selectedColorThumb || !selectedColorThumbImg || !patrioticFlyerThumb || !patrioticFlyerThumbImg || !patrioticDetailThumb || !patrioticDetailThumbImg) return;
 
   selectedColorThumb.classList.toggle('is-hidden', !item);
   patrioticFlyerThumb.classList.toggle('is-hidden', !item?.flyerImg);
+  patrioticDetailThumb.classList.toggle('is-hidden', !item?.detailImg);
 
   if (item) {
     selectedColorThumbImg.src = item.img;
@@ -425,6 +451,11 @@ function updateGalleryThumbs(item) {
   if (item?.flyerImg) {
     patrioticFlyerThumbImg.src = item.flyerImg;
     patrioticFlyerThumbImg.alt = `${item.name} Gummy Bear Cat product flyer`;
+  }
+
+  if (item?.detailImg) {
+    patrioticDetailThumbImg.src = item.detailImg;
+    patrioticDetailThumbImg.alt = `${item.name} hand-painted Gummy Bear Cat closeup`;
   }
 }
 
@@ -509,6 +540,14 @@ function setThumb(index) {
     return;
   }
 
+  if (index === 4 && item?.detailImg) {
+    currentThumb = 4;
+    setThumbActive(4);
+    setHero(item.detailImg);
+    updateBadge(item);
+    return;
+  }
+
   if (!item) return;
   currentThumb = index;
   setThumbActive(index);
@@ -544,8 +583,26 @@ function loadSwatchImages() {
   });
 }
 
+function trackEtsyBuyClick() {
+  const buyBtn = document.getElementById('buyBtn');
+  const item = product(currentColor);
+  if (!buyBtn || buyBtn.getAttribute('aria-disabled') === 'true' || !item?.inStock) return;
+
+  if (typeof gtag === 'function') {
+    gtag('event', 'etsy_buy_click', {
+      event_category: 'ecommerce',
+      event_label: item.name,
+      product_name: 'Gummy Bear Cat Keychain',
+      color: item.name,
+      value: 8,
+      currency: 'USD'
+    });
+  }
+}
+
 syncStockClasses();
 loadSwatchImages();
+document.getElementById('buyBtn')?.addEventListener('click', trackEtsyBuyClick);
 mainImg?.addEventListener('click', openImageZoom);
 mainImg?.addEventListener('keydown', (event) => {
   if (event.key === 'Enter' || event.key === ' ') {
