@@ -176,7 +176,7 @@ hr{border:none;border-top:1px solid #ede8ff;}
     <div>
       <div class="product-eyebrow">✨ hand painted · keychain ready</div>
       <div class="product-title">Gummy Bear Cat<br>Keychain</div>
-      <div class="product-subtitle">A Hello Kitty meets gummy bear mashup, finished with hand-painted details in your selected color. Attaches to your keys, bag, or backpack. 🐱</div>
+      <div class="product-subtitle">A Cute Kitty meets gummy bear mashup, finished with hand-painted details in your selected color. Attaches to your keys, bag, or backpack. 🐱</div>
     </div>
 
     <hr>
@@ -186,7 +186,7 @@ hr{border:none;border-top:1px solid #ede8ff;}
       <div class="selector-label">Pick a color</div>
       <div class="color-options">
         <button class="color-swatch swatch-pink" type="button" onclick="selectColor('pink')" title="Pink" aria-label="Pink"></button>
-        <button class="color-swatch swatch-redwhite" type="button" onclick="selectColor('redwhite')" title="Red / White Swirl" aria-label="Red / White Swirl"></button>
+        <button class="color-swatch swatch-redwhite" type="button" onclick="selectColor('redwhite')" title="Red Swirl" aria-label="Red Swirl"></button>
         <button class="color-swatch swatch-fuchsia" type="button" onclick="selectColor('fuchsia')" title="Fuchsia" aria-label="Fuchsia"></button>
         <button class="color-swatch swatch-patriotic" type="button" onclick="selectColor('patriotic')" title="Patriotic" aria-label="Patriotic"></button>
       </div>
@@ -206,7 +206,7 @@ hr{border:none;border-top:1px solid #ede8ff;}
       <div class="price-row total"><span>Total</span><span id="totalPrice">$8.00</span></div>
     </div>
 
-    <a href="https://etsy.com" target="_blank" class="cta-btn disabled" id="buyBtn" aria-disabled="true">Choose a color to buy</a>
+    <a href="#" target="_blank" class="cta-btn disabled" id="buyBtn" aria-disabled="true">Choose a color to buy</a>
     <div class="handnote">Choose a color to see that hand-painted version.</div>
 
     <hr>
@@ -252,8 +252,8 @@ hr{border:none;border-top:1px solid #ede8ff;}
         <span class="color-card-label">Pink</span>
       </div>
       <div class="color-card">
-        <img class="fit-height" src="GummyBearCatRedWhiteSwirl.png" alt="Red and white swirl hand-painted Gummy Bear Cat keychain">
-        <span class="color-card-label">Red / White Swirl</span>
+        <img class="fit-height" src="GummyBearCatRedWhiteSwirl.png" alt="Red Swirl hand-painted Gummy Bear Cat keychain">
+        <span class="color-card-label">Red Swirl</span>
       </div>
       <div class="color-card">
         <img class="fit-height" src="GummyBearCatFuchsia.png" alt="Fuchsia hand-painted Gummy Bear Cat keychain">
@@ -292,14 +292,16 @@ const products = {
     name: 'Pink',
     img: 'GummyBearCatWithChain.png',
     swatchImg: 'GummyBearCatPinkSwatch.png',
+    etsyUrl: 'https://www.etsy.com/listing/4531746097/gummybear-cat-keychain?variation0=6801512818',
     bg: 'rgba(255,105,180,0.14)',
     color: '#8a1a50',
     inStock: true
   },
   redwhite: {
-    name: 'Red / White Swirl',
+    name: 'Red Swirl',
     img: 'GummyBearCatRedWhiteSwirl.png',
     swatchImg: 'GummyBearCatRedWhiteSwirlSwatch.png',
+    etsyUrl: 'https://www.etsy.com/listing/4531746097/gummybear-cat-keychain?variation0=6801512814',
     bg: 'rgba(217,31,45,0.12)',
     color: '#8a1b22',
     inStock: true
@@ -308,6 +310,7 @@ const products = {
     name: 'Fuchsia',
     img: 'GummyBearCatFuchsia.png',
     swatchImg: 'GummyBearCatFuchsiaSwatch.png',
+    etsyUrl: 'https://www.etsy.com/listing/4531746097/gummybear-cat-keychain?variation0=6801512814',
     bg: 'rgba(209,0,167,0.12)',
     color: '#7a0062',
     inStock: true
@@ -318,6 +321,7 @@ const products = {
     swatchImg: 'GummyBearCatPatrioticSwatch.png',
     detailImg: 'GummyBearCatPatriotic.png',
     flyerImg: 'GummyCatPatrioticFlyer.png',
+    etsyUrl: 'https://www.etsy.com/listing/4531746097/gummybear-cat-keychain?variation0=6801512816',
     bg: 'rgba(43,80,170,0.12)',
     color: '#203b82',
     inStock: true
@@ -397,6 +401,7 @@ function updateBuyState(item) {
   if (!item) {
     buyBtn.classList.add('disabled');
     buyBtn.setAttribute('aria-disabled', 'true');
+    buyBtn.href = '#';
     buyBtn.textContent = 'Choose a color to buy';
     return;
   }
@@ -404,12 +409,22 @@ function updateBuyState(item) {
   if (!item.inStock) {
     buyBtn.classList.add('disabled');
     buyBtn.setAttribute('aria-disabled', 'true');
+    buyBtn.href = '#';
     buyBtn.textContent = `${item.name} is out of stock`;
+    return;
+  }
+
+  if (!item.etsyUrl) {
+    buyBtn.classList.add('disabled');
+    buyBtn.setAttribute('aria-disabled', 'true');
+    buyBtn.href = '#';
+    buyBtn.textContent = `${item.name} Etsy link coming soon`;
     return;
   }
 
   buyBtn.classList.remove('disabled');
   buyBtn.removeAttribute('aria-disabled');
+  buyBtn.href = item.etsyUrl;
   buyBtn.textContent = `View ${item.name} on Etsy`;
 }
 

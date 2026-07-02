@@ -112,12 +112,14 @@ function round2(n) { return Math.round(n * 100) / 100; }
 
 function getProducts() {
   return sheetToObjects(getSheet(SHEETS.PRODUCTS)).map(r => ({
-    productId:          String(r.ProductID   || ''),
-    productName:        String(r.ProductName || ''),
-    category:           String(r.Category    || ''),
-    description:        String(r.Description || ''),
+    productId:           String(r.ProductID      || ''),
+    productName:         String(r.ProductName    || ''),
+    category:            String(r.Category       || ''),
+    description:         String(r.Description    || ''),
+    trackingType:        String(r.TrackingType   || 'Individual'), // 'Individual' | 'Quantity'
     defaultLaborMinutes: Number(r.DefaultLaborMinutes) || 0,
-    defaultSalePrice:   Number(r.DefaultSalePrice)    || 0,
+    defaultSalePrice:    Number(r.DefaultSalePrice)    || 0,
+    stockQty:            r.StockQty !== '' ? Number(r.StockQty) : null,
   }));
 }
 
@@ -688,10 +690,87 @@ function seedSampleData() {
   return { success: true, log };
 }
 
+// ─── Wipe all known tabs so firstTimeSetup starts completely fresh ────────────
+// Run this ONCE before firstTimeSetup when you need a clean slate.
+
+function clearAllSheets() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+
+  // Create a temp placeholder so the spreadsheet always has at least one sheet
+  const temp = ss.insertSheet('_temp');
+
+  // All tabs to wipe — includes old "Costs" tab from v1 if it exists
+  const tabsToDelete = [
+    'Products', 'Supplies', 'Purchases', 'ProductMaterials',
+    'Inventory', 'Labor', 'Sales', 'Dashboard', 'Costs',
+  ];
+
+  tabsToDelete.forEach(name => {
+    const sheet = ss.getSheetByName(name);
+    if (sheet) {
+      ss.deleteSheet(sheet);
+      Logger.log('Deleted: ' + name);
+    }
+  });
+
+  // Remove the placeholder now that other sheets are gone
+  ss.deleteSheet(temp);
+
+  Logger.log('✅ All tabs cleared. Now run firstTimeSetup.');
+}
+
 // ─── Run this from the script editor for full first-time setup ────────────────
 
 function firstTimeSetup() {
   setupSheets();
   seedSampleData();
   Logger.log('✅ Setup complete. Check the spreadsheet.');
+}
+
+// ─── One-time: add real GummyBearCat inventory (run once, then delete) ────────
+
+function addRealGummyCats() {
+  const ss        = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const TODAY     = '2026-06-13';
+  const PRODUCT   = 'BC-001';
+  const log       = [];
+
+  // 1. Add BC-001 to Products if it isn't there yet
+  const prodSheet = ss.getSheetByName(SHEETS.PRODUCTS);
+  const prodData  = prodSheet.getDataRange().getValues();
+  const prodIds   = prodData.slice(1).map(r => String(r[0]));
+  if (!prodIds.includes(PRODUCT)) {
+    prodSheet.appendRow([PRODUCT, 'BearCat Keychain (GummyCat)', 'Keychain',
+      'Gummy bear cat resin keychain with chain', 45, 12.00]);
+    log.push('Added product: ' + PRODUCT);
+  } else {
+    log.push('Product already exists: ' + PRODUCT);
+  }
+
+  // 2. Build all 27 inventory rows
+  const batches = [
+    { color: 'Patriotic',  qty: 11, start: 1  },
+    { color: 'Pink',       qty: 5,  start: 12 },
+    { color: 'Fuchsia',    qty: 6,  start: 17 },
+    { color: 'Red Swirl',  qty: 5,  start: 23 },
+  ];
+
+  const invSheet = ss.getSheetByName(SHEETS.INVENTORY);
+  const rows     = [];
+
+  batches.forEach(b => {
+    for (let i = 0; i < b.qty; i++) {
+      const num   = String(b.start + i).padStart(3, '0');
+      const itemId = PRODUCT + '-' + num;
+      rows.push([itemId, PRODUCT, 'Available', b.color, TODAY, '', '']);
+    }
+  });
+
+  if (rows.length > 0) {
+    invSheet.getRange(invSheet.getLastRow() + 1, 1, rows.length, 7).setValues(rows);
+    log.push('Added ' + rows.length + ' inventory items');
+  }
+
+  Logger.log(log.join('\n'));
+  Logger.log('✅ Done! SKUs: BC-001-001 → BC-001-027');
 }

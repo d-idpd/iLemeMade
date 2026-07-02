@@ -97,6 +97,10 @@ nav{background:var(--cream);padding:14px 28px;display:flex;align-items:center;ju
 /* CTA */
 .cta-btn{background:var(--purple);color:white;font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;padding:16px 28px;border-radius:100px;border:none;cursor:pointer;width:100%;box-shadow:0 4px 20px rgba(179,136,255,0.35);transition:transform 0.15s,box-shadow 0.15s;text-align:center;text-decoration:none;display:block;}
 .cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(179,136,255,0.5);}
+.cta-btn.coming-soon{position:relative;overflow:hidden;background:#4a4650;color:#fff;cursor:not-allowed;pointer-events:none;box-shadow:none;}
+.cta-btn.coming-soon::before{content:"COMING SOON";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(-45deg,#ffd93d 0 12px,#2a1f3d 12px 24px);color:white;text-shadow:0 1px 2px rgba(0,0,0,0.55);font-family:'Nunito',sans-serif;font-weight:900;font-size:0.95rem;letter-spacing:0.16em;z-index:1;}
+.cta-btn.coming-soon::after{content:"";position:absolute;inset:5px;border:2px dashed rgba(255,255,255,0.8);border-radius:100px;z-index:2;pointer-events:none;}
+.cta-btn.coming-soon:hover{transform:none;box-shadow:none;}
 
 .handnote{font-family:'Caveat',cursive;font-size:1rem;color:var(--pink);text-align:center;}
 
@@ -202,7 +206,7 @@ hr{border:none;border-top:1px solid #ede8ff;}
       <div class="price-row total"><span>Total</span><span id="totalPrice">$20.00</span></div>
     </div>
 
-    <a href="https://etsy.com" target="_blank" class="cta-btn">View on Etsy 🛍️</a>
+    <a href="#" class="cta-btn coming-soon" aria-disabled="true" tabindex="-1">View on Etsy 🛍️</a>
     <div class="handnote">✦ every piece is one of a kind ✦</div>
 
     <hr>
