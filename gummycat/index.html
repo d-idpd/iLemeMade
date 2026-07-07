@@ -290,6 +290,8 @@ const heightFitImages = new Set([
 const products = {
   pink: {
     name: 'Pink',
+    sheetId: 'BC-002',
+    price: 8.00,
     img: 'GummyBearCatWithChain.png',
     swatchImg: 'GummyBearCatPinkSwatch.png',
     etsyUrl: 'https://www.etsy.com/listing/4531746097/gummybear-cat-keychain?variation0=6801512818',
@@ -299,6 +301,8 @@ const products = {
   },
   redwhite: {
     name: 'Red Swirl',
+    sheetId: 'BC-004',
+    price: 5.00,
     img: 'GummyBearCatRedWhiteSwirl.png',
     swatchImg: 'GummyBearCatRedWhiteSwirlSwatch.png',
     etsyUrl: 'https://www.etsy.com/listing/4531746097/gummybear-cat-keychain?variation0=6801512814',
@@ -308,6 +312,8 @@ const products = {
   },
   fuchsia: {
     name: 'Fuchsia',
+    sheetId: 'BC-003',
+    price: 8.00,
     img: 'GummyBearCatFuchsia.png',
     swatchImg: 'GummyBearCatFuchsiaSwatch.png',
     etsyUrl: 'https://www.etsy.com/listing/4531746097/gummybear-cat-keychain?variation0=6801512814',
@@ -317,6 +323,8 @@ const products = {
   },
   patriotic: {
     name: 'Patriotic',
+    sheetId: 'BC-001',
+    price: 8.00,
     img: 'GummyBearCatWithChain-patriotic.png',
     swatchImg: 'GummyBearCatPatrioticSwatch.png',
     detailImg: 'GummyBearCatPatriotic.png',
@@ -429,9 +437,10 @@ function updateBuyState(item) {
 }
 
 function updateSummary(item) {
+  const priceStr = item ? '$' + item.price.toFixed(2) : '—';
   document.getElementById('summaryColor').textContent = item ? item.name : 'Choose a color';
-  document.getElementById('basePrice').textContent = '$8.00';
-  document.getElementById('totalPrice').textContent = '$8.00';
+  document.getElementById('basePrice').textContent = priceStr;
+  document.getElementById('totalPrice').textContent = priceStr;
   document.getElementById('styleDesc').textContent = 'Hand painted';
 }
 
@@ -614,6 +623,36 @@ function trackEtsyBuyClick() {
     });
   }
 }
+
+// Fetch live stock + price from public Google Sheets CSV.
+// Falls back silently to the hardcoded values above if the fetch fails.
+(function fetchStock() {
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQivJ5o_YEdKPRlPhpmod_UuJbe6UTTi0eRazVGNxefBFRp0ZawAdCYy1qPHVFPTvD2G6GfwPnEKOct/pub?gid=268917907&single=true&output=csv';
+  const sheetIdToKey = { 'BC-001': 'patriotic', 'BC-002': 'pink', 'BC-003': 'fuchsia', 'BC-004': 'redwhite' };
+  fetch(CSV_URL)
+    .then(function(r) { return r.text(); })
+    .then(function(text) {
+      const lines   = text.trim().split('\n');
+      const headers = lines[0].split(',').map(function(h) { return h.trim().replace(/^"|"$/g, ''); });
+      const idCol    = headers.indexOf('ProductID');
+      const qtyCol   = headers.indexOf('StockQty');
+      const priceCol = headers.indexOf('DefaultSalePrice');
+      if (idCol < 0 || qtyCol < 0) return;
+      for (let i = 1; i < lines.length; i++) {
+        const cols  = lines[i].split(',').map(function(c) { return c.trim().replace(/^"|"$/g, ''); });
+        const pid   = cols[idCol];
+        const key   = sheetIdToKey[pid];
+        if (!key) continue;
+        const qty   = parseInt(cols[qtyCol])    || 0;
+        const price = parseFloat(cols[priceCol]);
+        products[key].inStock = qty > 0;
+        if (!isNaN(price) && price > 0) products[key].price = price;
+      }
+      syncStockClasses();
+      if (currentColor) selectColor(currentColor);
+    })
+    .catch(function() {});
+})();
 
 syncStockClasses();
 loadSwatchImages();

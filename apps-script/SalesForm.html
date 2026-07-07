@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Record a Sale — iLemeMade</title>
+<style>
+  :root {
+    --bg: #f5f0ff;
+    --card: #ffffff;
+    --primary: #7c3aed;
+    --primary-dark: #5b21b6;
+    --accent: #ff7eb3;
+    --text: #1e1333;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --success-bg: #d1fae5;
+    --success: #065f46;
+    --error-bg: #fee2e2;
+    --error: #991b1b;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 16px; }
+  h1 { font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+  .subtitle { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
+  .card { background: var(--card); border-radius: var(--radius); padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); max-width: 480px; margin: 0 auto; }
+  label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .03em; }
+  input, select, textarea {
+    width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 1rem; color: var(--text); background: #faf9ff; outline: none; transition: border-color .15s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+  .field { margin-bottom: 16px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .etsy-fields { display: none; margin-top: 8px; padding: 12px; background: #fdf4ff; border-radius: 8px; border: 1px dashed #c4b5fd; }
+  .etsy-fields .field { margin-bottom: 10px; }
+  .etsy-fields .field:last-child { margin-bottom: 0; }
+  .revenue-box { background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 12px; margin-bottom: 16px; }
+  .revenue-box .label { font-size: .75rem; color: #065f46; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
+  .revenue-box .amount { font-size: 1.6rem; font-weight: 800; color: #059669; }
+  .revenue-box .note { font-size: .75rem; color: #6b7280; margin-top: 2px; }
+  button[type=submit] {
+    width: 100%; padding: 13px; background: var(--primary); color: #fff;
+    border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer;
+    transition: background .15s; margin-top: 4px;
+  }
+  button[type=submit]:hover { background: var(--primary-dark); }
+  button[type=submit]:disabled { background: var(--muted); cursor: not-allowed; }
+  .msg { display: none; padding: 12px 14px; border-radius: 8px; font-size: .9rem; font-weight: 600; margin-top: 14px; }
+  .msg.success { display: block; background: var(--success-bg); color: var(--success); }
+  .msg.error   { display: block; background: var(--error-bg);   color: var(--error); }
+  .qty-row { display: flex; align-items: center; gap: 10px; }
+  .qty-btn { width: 36px; height: 36px; border: 1.5px solid var(--border); border-radius: 6px; background: var(--card); font-size: 1.2rem; cursor: pointer; flex-shrink: 0; }
+  #qty { text-align: center; width: 60px; flex-shrink: 0; }
+  .stock-badge { font-size: .75rem; color: var(--muted); align-self: center; }
+  select:disabled { opacity: .5; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>💸 Record a Sale</h1>
+  <p class="subtitle">iLemeMade business tracker</p>
+  <form id="saleForm">
+    <div class="field">
+      <label for="productId">Product</label>
+      <select id="productId" name="productId" required>
+        <option value="">— loading products… —</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Quantity</label>
+      <div class="qty-row">
+        <button type="button" class="qty-btn" id="qtyMinus">−</button>
+        <input type="number" id="qty" name="qty" value="1" min="1" max="999">
+        <button type="button" class="qty-btn" id="qtyPlus">+</button>
+        <span class="stock-badge" id="stockBadge"></span>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="priceEach">Price Each ($)</label>
+        <input type="number" id="priceEach" name="priceEach" step="0.01" min="0" placeholder="0.00" required>
+      </div>
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+    </div>
+    <div class="field">
+      <label for="channel">Sales Channel</label>
+      <select id="channel" name="channel" required>
+        <option value="In Person - Cash">In Person — Cash</option>
+        <option value="In Person - Venmo">In Person — Venmo</option>
+        <option value="Etsy">Etsy</option>
+        <option value="Instagram">Instagram</option>
+        <option value="Gift">Gift / Free</option>
+      </select>
+    </div>
+    <div class="etsy-fields" id="etsyFields">
+      <div class="field">
+        <label for="salesOrder">Etsy Order #</label>
+        <input type="text" id="salesOrder" name="salesOrder" placeholder="e.g. 1234567890">
+      </div>
+      <div class="field">
+        <label for="taxCollected">Tax Collected by Etsy ($)</label>
+        <input type="number" id="taxCollected" name="taxCollected" step="0.01" min="0" value="0" placeholder="0.00">
+        <div style="font-size:.72rem;color:var(--muted);margin-top:3px">Etsy handles this — it is NOT your revenue</div>
+      </div>
+    </div>
+    <div class="revenue-box" id="revenueBox" style="display:none">
+      <div class="label">Your Revenue</div>
+      <div class="amount" id="revenueAmt">$0.00</div>
+      <div class="note" id="revenueNote"></div>
+    </div>
+    <div class="field">
+      <label for="notes">Notes (optional)</label>
+      <input type="text" id="notes" name="notes" placeholder="Who bought it, any details…">
+    </div>
+    <button type="submit" id="submitBtn">Record Sale</button>
+    <div class="msg" id="msg"></div>
+  </form>
+</div>
+
+<script>
+(function () {
+  const form       = document.getElementById('saleForm');
+  const productSel = document.getElementById('productId');
+  const qtySel     = document.getElementById('qty');
+  const priceSel   = document.getElementById('priceEach');
+  const channelSel = document.getElementById('channel');
+  const taxSel     = document.getElementById('taxCollected');
+  const dateSel    = document.getElementById('date');
+  const submitBtn  = document.getElementById('submitBtn');
+  const msg        = document.getElementById('msg');
+  const etsyFields = document.getElementById('etsyFields');
+  const revenueBox = document.getElementById('revenueBox');
+  const revenueAmt = document.getElementById('revenueAmt');
+  const revenueNote= document.getElementById('revenueNote');
+  const stockBadge = document.getElementById('stockBadge');
+
+  let products = [];
+
+  // Set today's date
+  dateSel.value = new Date().toISOString().split('T')[0];
+
+  // Load products
+  google.script.run
+    .withSuccessHandler(function (list) {
+      products = list;
+      productSel.innerHTML = '<option value="">— pick a product —</option>';
+      list.forEach(function (p) {
+        const opt = document.createElement('option');
+        opt.value = p.productId;
+        opt.textContent = p.productName + (p.trackingType === 'Quantity' ? ' (' + (p.stockQty || 0) + ' in stock)' : '');
+        opt.dataset.defaultPrice = p.defaultPrice || '';
+        opt.dataset.stock = p.stockQty || '';
+        opt.dataset.trackingType = p.trackingType;
+        productSel.appendChild(opt);
+      });
+    })
+    .withFailureHandler(function (err) {
+      productSel.innerHTML = '<option value="">⚠ Could not load products</option>';
+    })
+    .getProductsForForm();
+
+  productSel.addEventListener('change', function () {
+    const opt = productSel.selectedOptions[0];
+    if (opt && opt.dataset.defaultPrice) priceSel.value = opt.dataset.defaultPrice;
+    if (opt && opt.dataset.stock) {
+      stockBadge.textContent = opt.dataset.stock + ' in stock';
+    } else {
+      stockBadge.textContent = '';
+    }
+    updateRevenue();
+  });
+
+  channelSel.addEventListener('change', function () {
+    const isEtsy = channelSel.value === 'Etsy';
+    etsyFields.style.display = isEtsy ? 'block' : 'none';
+    updateRevenue();
+  });
+
+  [qtySel, priceSel, taxSel].forEach(function (el) {
+    el.addEventListener('input', updateRevenue);
+  });
+
+  document.getElementById('qtyMinus').addEventListener('click', function () {
+    const v = parseInt(qtySel.value) || 1;
+    if (v > 1) { qtySel.value = v - 1; updateRevenue(); }
+  });
+  document.getElementById('qtyPlus').addEventListener('click', function () {
+    qtySel.value = (parseInt(qtySel.value) || 1) + 1; updateRevenue();
+  });
+
+  function updateRevenue() {
+    const qty   = parseInt(qtySel.value)   || 0;
+    const price = parseFloat(priceSel.value) || 0;
+    const tax   = parseFloat(taxSel.value)   || 0;
+    const sub   = qty * price;
+    const rev   = sub; // OurRevenue = SubTotal (we keep all, tax is Etsy's)
+    revenueBox.style.display = (qty && price) ? 'block' : 'none';
+    revenueAmt.textContent = '$' + rev.toFixed(2);
+    if (channelSel.value === 'Etsy' && tax > 0) {
+      revenueNote.textContent = 'SubTotal $' + sub.toFixed(2) + ' − Etsy tax $' + tax.toFixed(2) + ' (their money, not yours)';
+    } else {
+      revenueNote.textContent = qty + ' × $' + price.toFixed(2);
+    }
+  }
+
+  function showMsg(type, text) {
+    msg.className = 'msg ' + type;
+    msg.textContent = text;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!productSel.value) { showMsg('error', 'Please select a product.'); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving…';
+    msg.className = 'msg';
+
+    const qty      = parseInt(qtySel.value)     || 1;
+    const priceEach= parseFloat(priceSel.value) || 0;
+    const subTotal = qty * priceEach;
+    const tax      = parseFloat(taxSel.value)   || 0;
+
+    const data = {
+      date:         dateSel.value,
+      productId:    productSel.value,
+      itemId:       '',
+      qty:          qty,
+      priceEach:    priceEach,
+      subTotal:     subTotal,
+      taxCollected: tax,
+      ourRevenue:   subTotal,
+      channel:      channelSel.value,
+      salesOrder:   document.getElementById('salesOrder').value.trim(),
+      notes:        document.getElementById('notes').value.trim(),
+    };
+
+    google.script.run
+      .withSuccessHandler(function (res) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Record Sale';
+        if (res && res.success) {
+          showMsg('success', '✅ Sale recorded! ' + qty + '× ' + productSel.selectedOptions[0].textContent.split(' (')[0] + ' for $' + subTotal.toFixed(2));
+          form.reset();
+          dateSel.value = new Date().toISOString().split('T')[0];
+          // Reload product list to show updated stock
+          productSel.dispatchEvent(new Event('change'));
+          google.script.run.withSuccessHandler(function(list){
+            products = list;
+            const cur = productSel.value;
+            productSel.innerHTML = '<option value="">— pick a product —</option>';
+            list.forEach(function(p){
+              const opt = document.createElement('option');
+              opt.value = p.productId;
+              opt.textContent = p.productName + (p.trackingType === 'Quantity' ? ' (' + (p.stockQty||0) + ' in stock)' : '');
+              opt.dataset.defaultPrice = p.defaultPrice || '';
+              opt.dataset.stock = p.stockQty || '';
+              opt.dataset.trackingType = p.trackingType;
+              productSel.appendChild(opt);
+            });
+          }).getProductsForForm();
+        } else {
+          showMsg('error', '⚠ Error: ' + (res && res.error ? res.error : 'Unknown error'));
+        }
+      })
+      .withFailureHandler(function (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Record Sale';
+        showMsg('error', '⚠ Failed: ' + err.message);
+      })
+      .submitSale(data);
+  });
+})();
+</script>
+</body>
+</html>

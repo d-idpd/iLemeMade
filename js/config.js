@@ -6,6 +6,9 @@ export const Config = {
   // Example: 'https://script.google.com/macros/s/AKfy.../exec'
   SHEETS_API_URL: '',
 
+  // Public CSV for the Products sheet — anyone can read, no auth needed
+  PRODUCTS_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQivJ5o_YEdKPRlPhpmod_UuJbe6UTTi0eRazVGNxefBFRp0ZawAdCYy1qPHVFPTvD2G6GfwPnEKOct/pub?gid=268917907&single=true&output=csv',
+
   // Profit allocation percentages (must sum to 1.0)
   SAVINGS_RATE:      0.50,
   REINVESTMENT_RATE: 0.25,
